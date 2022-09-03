@@ -7,7 +7,7 @@ Parameters:
     Type: String
 
 Resources:
-  InstanceSecurityGroup:
+  InstanceSecurityGroup1:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupName: !Sub UdaPeople-${ID}
@@ -25,12 +25,12 @@ Resources:
           FromPort: 9100
           ToPort: 9100
           CidrIp: 0.0.0.0/0 
-  EC2Instance:
+  EC2Instance1:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: t2.micro
       SecurityGroups:
-        - Ref: InstanceSecurityGroup
+        - Ref: InstanceSecurityGroup1
       KeyName: udacity
       ImageId: ami-052efd3df9dad4825 
       Tags:
