@@ -7,7 +7,7 @@ Parameters:
     Type: String
 
 Resources:
-  WebsiteBucket1:
+  WebsiteBucket:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub "udapeople-${ID}"
@@ -16,10 +16,10 @@ Resources:
         IndexDocument: index.html
         ErrorDocument: 404.html
   
-  WebsiteBucketPolicy1:
+  WebsiteBucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
-      Bucket: !Ref 'WebsiteBucket1'
+      Bucket: !Ref 'WebsiteBucket'
       PolicyDocument:
         Statement:
         - Sid: PublicReadForGetBucketObjects
