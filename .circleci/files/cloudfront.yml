@@ -15,7 +15,7 @@ Resources:
       CloudFrontOriginAccessIdentityConfig:
         Comment: Origin Access Identity for Serverless Static Website
 
-  WebpageCDN:
+  WebpageCDN1:
     Type: AWS::CloudFront::Distribution
     Properties:
       DistributionConfig:
