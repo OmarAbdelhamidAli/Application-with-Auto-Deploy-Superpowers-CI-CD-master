@@ -261,7 +261,7 @@ jobs:
       - run:
           name: Get backend url
           command: |
-            export BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
+            export BACKEND_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL = ${API_URL}"
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
@@ -373,24 +373,31 @@ jobs:
       - destroy-environment
       - revert-migrations  
 
-# cleanup:
-#     docker:
-#       # Docker image here
-#     steps:
-#       # Checkout code from git
-#       - run:
-#           name: Get old stack workflow id
-#           command: |
-#             # your code here
-#             export OldWorkflowID="the id here"
-#             export STACKS=[] #put the list of stacks here
-#       - run:
-#           name: Remove old stacks and files
-#           command: |
-#             if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]
-#             then
-#               # your code here
-#             fi
+  # cleanup:
+  #   docker:
+  #     - image: cimg/base:stable
+  #   steps:
+  #     - checkout
+  #     - install_awscli
+  #     - install_nodejs
+  #     - run:
+  #         name: Remove old stacks and files
+  #         command: |         
+  #           export OLDWORKFLOWID=$(curl --insecure https://kvdb.io/FMx4bbD7JVWrsAV5u15xLs/old_workflow_id-2)
+  #           echo Old Workflow ID: $OLDWORKFLOWID 
+            
+  #           export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
+  #           --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
+  #           echo Stack names: "${STACKS[@]}"          
+  #           if [[ "${STACKS[@]}" =~ ${OLDWORKFLOWID} ]]
+  #           then
+  #             aws s3 rm "s3://udapeople-${OLDWORKFLOWID}" --recursive
+  #             aws cloudformation delete-stack --stack-name "udapeople-backend-${OLDWORKFLOWID}"
+  #             aws cloudformation delete-stack --stack-name "udapeople-frontend-${OLDWORKFLOWID}"
+  #             echo cleaning confirmed
+  #           else
+  #             echo cant clean
+  #           fi
             
 
 workflows:
