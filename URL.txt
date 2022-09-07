@@ -1,0 +1,5 @@
+repository URL[01]: https://github.com/OmarAbdelhamidAli/cdond-c3-projectstarter
+
+S3 Bucket URL[02]: http://udapeople-0900855.s3-website-us-east-1.amazonaws.com
+
+cloudfront URL:d1td7lqydjkjmt.cloudfront.net	

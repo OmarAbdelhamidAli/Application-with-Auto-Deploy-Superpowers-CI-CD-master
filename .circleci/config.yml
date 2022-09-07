@@ -373,31 +373,31 @@ jobs:
       - destroy-environment
       - revert-migrations  
 
-  # cleanup:
-  #   docker:
-  #     - image: cimg/base:stable
-  #   steps:
-  #     - checkout
-  #     - install_awscli
-  #     - install_nodejs
-  #     - run:
-  #         name: Remove old stacks and files
-  #         command: |         
-  #           export OLDWORKFLOWID=$(curl --insecure https://kvdb.io/FMx4bbD7JVWrsAV5u15xLs/old_workflow_id-2)
-  #           echo Old Workflow ID: $OLDWORKFLOWID 
+  cleanup:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - install_awscli
+      - install_nodejs
+      - run:
+          name: Remove old stacks and files
+          command: |         
+            export OLDWORKFLOWID=$(curl --insecure https://kvdb.io/FMx4bbD7JVWrsAV5u15xLs/old_workflow_id-2)
+            echo Old Workflow ID: $OLDWORKFLOWID 
             
-  #           export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
-  #           --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
-  #           echo Stack names: "${STACKS[@]}"          
-  #           if [[ "${STACKS[@]}" =~ ${OLDWORKFLOWID} ]]
-  #           then
-  #             aws s3 rm "s3://udapeople-${OLDWORKFLOWID}" --recursive
-  #             aws cloudformation delete-stack --stack-name "udapeople-backend-${OLDWORKFLOWID}"
-  #             aws cloudformation delete-stack --stack-name "udapeople-frontend-${OLDWORKFLOWID}"
-  #             echo cleaning confirmed
-  #           else
-  #             echo cant clean
-  #           fi
+            export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
+            --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
+            echo Stack names: "${STACKS[@]}"          
+            if [[ "${STACKS[@]}" =~ ${OLDWORKFLOWID} ]]
+            then
+              aws s3 rm "s3://udapeople-${OLDWORKFLOWID}" --recursive
+              aws cloudformation delete-stack --stack-name "udapeople-backend-${OLDWORKFLOWID}"
+              aws cloudformation delete-stack --stack-name "udapeople-frontend-${OLDWORKFLOWID}"
+              echo cleaning confirmed
+            else
+              echo cant clean
+            fi
             
 
 workflows:
@@ -430,5 +430,5 @@ workflows:
           requires: [deploy-backend, deploy-frontend]
       - cloudfront-update:
           requires: [smoke-test]
-      # - cleanup:
-      #     requires: [cloudfront-update]
+      - cleanup:
+          requires: [cloudfront-update]
