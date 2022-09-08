@@ -1,5 +1,5 @@
-repository URL[01]: https://github.com/OmarAbdelhamidAli/cdond-c3-projectstarter
+repository URL[01]: https://github.com/OmarAbdelhamidAli/Application-with-Auto-Deploy-Superpowers-CI-CD-master
 
-S3 Bucket URL[02]: http://udapeople-0900855.s3-website-us-east-1.amazonaws.com
+S3 Bucket URL[02]: http://udapeople-0c3d75f.s3-website-us-east-1.amazonaws.com
 
 cloudfront URL:d1td7lqydjkjmt.cloudfront.net	
