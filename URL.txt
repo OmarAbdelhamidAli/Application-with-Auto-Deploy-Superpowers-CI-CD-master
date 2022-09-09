@@ -2,4 +2,8 @@ repository URL[01]: https://github.com/OmarAbdelhamidAli/Application-with-Auto-D
 
 S3 Bucket URL[02]: http://udapeople-0c3d75f.s3-website-us-east-1.amazonaws.com
 
-cloudfront URL:d1td7lqydjkjmt.cloudfront.net	
+cloudfront URL[03]: d1td7lqydjkjmt.cloudfront.net
+
+Back-End Instance URL[04] : http://ec2-34-203-188-171.compute-1.amazonaws.com
+
+Prometheus URL[05]: http://ec2-54-87-133-216.compute-1.amazonaws.com
